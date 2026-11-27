@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 785" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <style>
+    .box { fill:#ffffff; stroke:#333333; stroke-width:1.5; rx:10; }
+    .infra { fill:#eef2f7; stroke:#5578a6; }
+    .scope { fill:#eaf6ee; stroke:#2f9e51; }
+    .target { fill:#fdeaea; stroke:#c62828; }
+    .oos { fill:#f3f3f3; stroke:#999999; stroke-dasharray:4,3; }
+    .attacker { fill:#fff7e0; stroke:#b8860b; }
+    .label { font-size:13px; fill:#1a1a1a; }
+    .small { font-size:11px; fill:#444444; }
+    .title { font-size:16px; font-weight:600; fill:#111111; }
+    .section { font-size:12px; font-weight:600; fill:#555555; }
+    .arrow { stroke:#555555; stroke-width:1.6; fill:none; marker-end:url(#arrow); }
+    .mitm { stroke:#c62828; stroke-width:2; fill:none; marker-end:url(#arrowred); stroke-dasharray:6,4; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#555555"/>
+    </marker>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#c62828"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="785" fill="#ffffff"/>
+  <text x="20" y="30" class="title">Topología de la red doméstica auditada (datos generalizados, sin identificadores reales)</text>
+
+  <!-- Internet cloud -->
+  <ellipse cx="600" cy="80" rx="110" ry="36" fill="#dde7f3" stroke="#5578a6"/>
+  <text x="600" y="85" text-anchor="middle" class="label">Internet</text>
+
+  <!-- ISP Router -->
+  <rect x="500" y="150" width="200" height="60" class="box infra" rx="10"/>
+  <text x="600" y="175" text-anchor="middle" class="label">Router principal del ISP</text>
+  <text x="600" y="193" text-anchor="middle" class="small">Red Wi-Fi 2.4G/5G — mismo segmento</text>
+
+  <line x1="600" y1="116" x2="600" y2="150" class="arrow"/>
+
+  <!-- Secondary ISP box - out of scope -->
+  <rect x="930" y="150" width="230" height="70" class="box oos" rx="10"/>
+  <text x="1045" y="172" text-anchor="middle" class="label">Repetidor de un segundo proveedor</text>
+  <text x="1045" y="188" text-anchor="middle" class="small">NAT propio — subred distinta</text>
+  <text x="1045" y="204" text-anchor="middle" class="small">⛔ Fuera de alcance (no auditado)</text>
+  <line x1="700" y1="180" x2="930" y2="180" class="arrow" stroke-dasharray="3,3"/>
+
+  <!-- Switch/AP bar -->
+  <rect x="150" y="260" width="900" height="26" class="box infra"/>
+  <text x="600" y="278" text-anchor="middle" class="small">Segmento LAN/Wi-Fi compartido — todo host ve su propio tráfico + broadcast/multicast (ARP, DHCP, mDNS)</text>
+  <line x1="600" y1="210" x2="600" y2="260" class="arrow"/>
+
+  <!-- Auditor laptop -->
+  <rect x="60" y="340" width="190" height="90" class="box attacker" rx="10"/>
+  <text x="155" y="365" text-anchor="middle" class="label">Laptop de la auditora</text>
+  <text x="155" y="383" text-anchor="middle" class="small">Wireshark · Nmap · TShark</text>
+  <text x="155" y="399" text-anchor="middle" class="small">arpspoof (MITM autorizado)</text>
+  <text x="155" y="415" text-anchor="middle" class="small">Script Python (prueba de concepto)</text>
+  <line x1="200" y1="286" x2="155" y2="340" class="arrow"/>
+
+  <!-- Family phones -->
+  <rect x="300" y="340" width="190" height="90" class="box scope" rx="10"/>
+  <text x="395" y="365" text-anchor="middle" class="label">Celulares de la familia</text>
+  <text x="395" y="383" text-anchor="middle" class="small">Apps de control IoT / Alexa</text>
+  <text x="395" y="399" text-anchor="middle" class="small">MAC aleatoria (privacidad)</text>
+  <text x="395" y="415" text-anchor="middle" class="small">Observación pasiva autorizada</text>
+  <line x1="420" y1="286" x2="395" y2="340" class="arrow"/>
+
+  <!-- Game console -->
+  <rect x="540" y="340" width="150" height="90" class="box scope" rx="10"/>
+  <text x="615" y="365" text-anchor="middle" class="label">Consola de</text>
+  <text x="615" y="381" text-anchor="middle" class="label">videojuegos</text>
+  <text x="615" y="403" text-anchor="middle" class="small">Hardware real,</text>
+  <text x="615" y="417" text-anchor="middle" class="small">firewall propio cerrado</text>
+  <line x1="630" y1="286" x2="615" y2="340" class="arrow"/>
+
+  <!-- Streaming/voice -->
+  <rect x="730" y="340" width="190" height="90" class="box scope" rx="10"/>
+  <text x="825" y="365" text-anchor="middle" class="label">Altavoces inteligentes /</text>
+  <text x="825" y="381" text-anchor="middle" class="label">streaming de TV (x5)</text>
+  <text x="825" y="400" text-anchor="middle" class="small">Control de IoT vía nube</text>
+  <text x="825" y="415" text-anchor="middle" class="small">(no vía LAN directa)</text>
+  <line x1="800" y1="286" x2="825" y2="340" class="arrow"/>
+
+  <!-- Smart TV -->
+  <rect x="960" y="340" width="150" height="90" class="box scope" rx="10"/>
+  <text x="1035" y="365" text-anchor="middle" class="label">Smart TV</text>
+  <text x="1035" y="385" text-anchor="middle" class="small">Sin puertos de</text>
+  <text x="1035" y="399" text-anchor="middle" class="small">gestión expuestos</text>
+  <text x="1035" y="413" text-anchor="middle" class="small">(todo "filtered")</text>
+  <line x1="950" y1="286" x2="1035" y2="340" class="arrow"/>
+
+  <!-- IoT bulbs family A -->
+  <rect x="300" y="470" width="190" height="100" class="box scope" rx="10"/>
+  <text x="395" y="495" text-anchor="middle" class="label">Focos/enchufes IoT</text>
+  <text x="395" y="511" text-anchor="middle" class="label">— Firmware A</text>
+  <text x="395" y="530" text-anchor="middle" class="small">Puerto de control propietario</text>
+  <text x="395" y="545" text-anchor="middle" class="small">Protocolo no verificado a fondo</text>
+  <text x="395" y="560" text-anchor="middle" class="small">(marca/modelo omitidos)</text>
+
+  <!-- IoT bulbs family B - VULNERABLE -->
+  <rect x="540" y="470" width="190" height="100" class="box target" rx="10"/>
+  <text x="635" y="495" text-anchor="middle" class="label">Focos/enchufes IoT</text>
+  <text x="635" y="511" text-anchor="middle" class="label">— Firmware B ⚠️</text>
+  <text x="635" y="530" text-anchor="middle" class="small">Canal de control sin autenticar</text>
+  <text x="635" y="545" text-anchor="middle" class="small">Vulnerable a replay</text>
+  <text x="635" y="560" text-anchor="middle" class="small">(marca/modelo omitidos)</text>
+
+  <line x1="395" y1="430" x2="395" y2="470" class="arrow"/>
+  <line x1="635" y1="430" x2="635" y2="470" class="arrow"/>
+
+  <!-- MITM path -->
+  <path d="M250,385 C275,440 300,480 300,500" class="mitm"/>
+  <path d="M300,520 C275,480 250,420 250,400" class="mitm"/>
+  <text x="140" y="470" class="small" fill="#b8860b">ARP spoofing autorizado</text>
+  <text x="140" y="484" class="small" fill="#b8860b">(celular propio ↔ foco propio)</text>
+
+  <!-- Direct exploit path -->
+  <path d="M250,410 C400,440 500,460 540,505" class="arrow" stroke="#c62828"/>
+  <text x="300" y="440" class="small" fill="#c62828">Conexión TCP directa (sin MITM)</text>
+  <text x="300" y="454" class="small" fill="#c62828">Prueba de concepto: comando forjado</text>
+
+  <!-- Legend -->
+  <rect x="60" y="610" width="1080" height="152" fill="#fafafa" stroke="#dddddd"/>
+  <text x="80" y="632" class="section">Leyenda</text>
+
+  <rect x="80" y="645" width="18" height="18" class="box infra"/>
+  <text x="106" y="659" class="small">Infraestructura de red (router / segmento compartido)</text>
+
+  <rect x="80" y="670" width="18" height="18" class="box scope"/>
+  <text x="106" y="684" class="small">Dispositivo dentro del alcance autorizado, sin hallazgo de control remoto explotable</text>
+
+  <rect x="80" y="695" width="18" height="18" class="box target"/>
+  <text x="106" y="709" class="small">Dispositivo con vulnerabilidad confirmada (control sin autenticación + replay)</text>
+
+  <rect x="500" y="645" width="18" height="18" class="box attacker"/>
+  <text x="526" y="659" class="small">Equipo de la auditora (origen del análisis y de la prueba de concepto)</text>
+
+  <rect x="500" y="670" width="18" height="18" class="box oos"/>
+  <text x="526" y="684" class="small">Fuera del alcance autorizado para este proyecto</text>
+
+  <line x1="500" y1="703" x2="530" y2="703" class="mitm"/>
+  <text x="536" y="708" class="small">Intercepción activa (ARP spoofing), solo con autorización explícita y variable controlada</text>
+
+  <line x1="500" y1="722" x2="530" y2="722" class="arrow" stroke="#c62828"/>
+  <text x="536" y="727" class="small">Explotación directa (sin interceptar nada, el protocolo no requiere autenticación)</text>
+
+  <text x="80" y="748" class="small" font-style="italic">Todas las IPs, MACs, SSID y marcas/modelos reales fueron omitidos deliberadamente de este diagrama.</text>
+</svg>

@@ -1,0 +1,9 @@
+# Safety net: never accidentally commit real captures, raw project notes,
+# or anything pulled in from the private working folder.
+*.pcap
+*.pcapng
+*.docx
+*.pdf
+.env
+__pycache__/
+*.pyc
