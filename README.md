@@ -1,4 +1,4 @@
-# Home Network Security Audit · Auditoría de Seguridad en Red Doméstica
+# Home Security Network Audit · Auditoría de Seguridad en Red Doméstica
 
 ![Network diagram](diagrams/network-diagram.svg)
 
